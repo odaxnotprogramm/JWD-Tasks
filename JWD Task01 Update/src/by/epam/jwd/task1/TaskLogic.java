@@ -19,7 +19,7 @@ public class TaskLogic {
     }
 
     public boolean isPointInRightPlace(double x, double y){
-            return ((y > 0 && y <= 4 && x >= -2 && x <= 2) || (y <= 0 && y >= -3 && x >= -4 && x <= 4) ||
+            return ((y >= 0 && y <= 4 && x >= -2 && x <= 2) || (y <= 0 && y >= -3 && x >= -4 && x <= 4) ||
                     x*x/0.25 + y*y/0.25 <= 1);
     }
 }
