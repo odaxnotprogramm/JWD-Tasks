@@ -1,4 +1,4 @@
-package by.epam.jwd.jarCode;
+package by.epam.jwd.jar;
 
 import java.util.Stack;
 
