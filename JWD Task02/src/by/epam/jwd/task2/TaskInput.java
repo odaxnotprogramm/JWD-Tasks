@@ -20,7 +20,7 @@ public class TaskInput {
         System.out.print(message);
         String input = scanner.nextLine();
         while(!check(input)){
-            System.out.print("Enter string that contains only (+,-,*,/) and digits!!!");
+            System.out.print("Enter string that contains only (+,-,*,/) and digits : ");
             input = scanner.nextLine();
         }
         return input;
