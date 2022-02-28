@@ -18,7 +18,7 @@ public class CalcTheExpression {
                 operation == '*' || operation == '/' ? 2 : -1;
     }
 
-    public void process_op(Stack<Integer> st, char operation){
+    public void processOperations(Stack<Integer> st, char operation){
         int r = st.peek(); st.pop();
         int l = st.peek(); st.pop();
         switch(operation){
@@ -42,13 +42,13 @@ public class CalcTheExpression {
                     operations.push('(');
                 } else if(s.charAt(i) == ')') {
                     while(operations.peek() != '('){
-                        process_op(digits, operations.peek());
+                        processOperations(digits, operations.peek());
                         operations.pop();
                     }
                     operations.pop();
                 } else if(isSymbolOperator(s.charAt(i))){
                     while(!operations.empty() && findPriority(operations.peek()) >= findPriority(s.charAt(i))){
-                        process_op(digits, operations.peek());
+                        processOperations(digits, operations.peek());
                         operations.pop();
                     }
                     operations.push(s.charAt(i));
@@ -65,7 +65,7 @@ public class CalcTheExpression {
             }
         }
         while(!operations.empty()){
-            process_op(digits, operations.peek());
+            processOperations(digits, operations.peek());
             operations.pop();
         }
         return digits.peek();
