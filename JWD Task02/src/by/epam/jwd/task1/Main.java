@@ -1,4 +1,4 @@
-package by.epam.jwd.task1;
+package by.epam.jwd.task2;
 
 public class Main {
 
