@@ -1,8 +1,8 @@
-package by.epam.jwd.jar;
+package by.epam.jwd.jarCode;
 
 import java.util.Stack;
 
-public class Main {
+public class CalcTheExpression {
 
     public boolean checkForSpace(char symbol){
         return symbol == ' ';
@@ -13,15 +13,15 @@ public class Main {
                 symbol == '*' || symbol == '/';
     }
 
-    public int findPriority(char op){
-        return op == '+' || op == '-' ? 1:
-                op == '*' || op == '/' ? 2 : -1;
+    public int findPriority(char operation){
+        return operation == '+' || operation == '-' ? 1:
+                operation == '*' || operation == '/' ? 2 : -1;
     }
 
-    public void process_op(Stack<Integer> st, char op){
+    public void process_op(Stack<Integer> st, char operation){
         int r = st.peek(); st.pop();
         int l = st.peek(); st.pop();
-        switch(op){
+        switch(operation){
             case '+' : st.push(l + r); break;
             case '-' : st.push(l - r); break;
             case '*' : st.push(l * r); break;
@@ -34,24 +34,24 @@ public class Main {
     }
 
     public int calTheExpression(String s) {
-        Stack<Integer> st = new Stack<>();
-        Stack<Character> op = new Stack<>();
+        Stack<Integer> digits = new Stack<>();
+        Stack<Character> operations = new Stack<>();
         for(int i = 0;i < s.length();++i){
             if(!checkForSpace(s.charAt(i))){
                 if(s.charAt(i) == '('){
-                    op.push('(');
+                    operations.push('(');
                 } else if(s.charAt(i) == ')') {
-                    while(op.peek() != '('){
-                        process_op(st, op.peek());
-                        op.pop();
+                    while(operations.peek() != '('){
+                        process_op(digits, operations.peek());
+                        operations.pop();
                     }
-                    op.pop();
+                    operations.pop();
                 } else if(isSymbolOperator(s.charAt(i))){
-                    while(!op.empty() && findPriority(op.peek()) >= findPriority(s.charAt(i))){
-                        process_op(st, op.peek());
-                        op.pop();
+                    while(!operations.empty() && findPriority(operations.peek()) >= findPriority(s.charAt(i))){
+                        process_op(digits, operations.peek());
+                        operations.pop();
                     }
-                    op.push(s.charAt(i));
+                    operations.push(s.charAt(i));
                 } else {
                     String operand = new String();
                     while(i < s.length() && isAlNum(s.charAt(i))) {
@@ -59,15 +59,15 @@ public class Main {
                     }
                     --i;
                     if(Character.isDigit(operand.charAt(0))){
-                        st.push(Integer.valueOf(operand));
+                        digits.push(Integer.valueOf(operand));
                     }
                 }
             }
         }
-        while(!op.empty()){
-            process_op(st, op.peek());
-            op.pop();
+        while(!operations.empty()){
+            process_op(digits, operations.peek());
+            operations.pop();
         }
-        return st.peek();
+        return digits.peek();
     }
 }
